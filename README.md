@@ -1,5 +1,5 @@
 <p align="center"> 
-    <img src="logo.png" alt="Logo of BERDT" width="50%">
+    <img src="logo.png" alt="Logo of BERDT" width="35%">
  </p>
 
 ![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
