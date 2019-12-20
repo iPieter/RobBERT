@@ -11,7 +11,8 @@ A Dutch language model based on roBERTa with some tasks specific to Dutch. For n
 
 
 # Getting started
-We use [Pipenv](https://pipenv.readthedocs.io/en/latest/), you can simply get started with installing the dependencies:
+To get started, make sure you have [Pipenv](https://pipenv.readthedocs.io/en/latest/) installed *(if not, just run `pip install pipenv` in your terminal)*.
+Afterwards, you can install the dependencies using the following command:
 
 ```
 pipenv install
@@ -28,10 +29,10 @@ wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/dict.txt'
 ```
 
 # Fine-tuning a model
-In this section we discribe how to use the scripts we provide to finetune models, hopefully this will be general enough to reuse for other tasks.
+In this section we describe how to use the scripts we provide to fine-tune models, hopefully this will be general enough to reuse for other tasks.
 
 ## Predicting the Dutch pronouns _die_ and _dat_
-We finetune our model on the Dutch [Europarl corpus](http://www.statmt.org/europarl/). You can download it first with:
+We fine-tune our model on the Dutch [Europarl corpus](http://www.statmt.org/europarl/). You can download it first with:
 
 ```
 cd data\
