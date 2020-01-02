@@ -11,7 +11,7 @@ class WordListFiller:
                  detokenizer: TreebankWordDetokenizer = TreebankWordDetokenizer(),
                  topk_limit=2048):
         self._model = model
-        self._target_words = [x.lower() for x in target_words]
+        self._target_words = [x.lower().strip() for x in target_words]
         self._target_words_spaced = set([" " + word for word in self._target_words])
         self._detokenizer = detokenizer
         self._top_k_limit = topk_limit
@@ -37,3 +37,6 @@ class WordListFiller:
                 new_sentence = self._detokenizer.detokenize(new_sentence_tokens)
                 result.append((new_sentence, tokenized[i]))
         return result
+
+    def occlude_target_words_index(self, input_sentence: str) -> List[Tuple[str, int]]:
+        return [(s[0], self._target_words.index(s[1].strip().lower())) for s in self.occlude_target_words(input_sentence)]
