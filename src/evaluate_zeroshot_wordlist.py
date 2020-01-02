@@ -8,8 +8,10 @@ from fairseq.models.roberta import RobertaModel
 
 from src.wordlistfiller import WordListFiller
 
+models_path = Path("..", "data", "processed", "wordlist")
 
-def evaluate(words: List[str], path: Path = None, model: RobertaModel = None):
+
+def evaluate(words: List[str], path: Path = None, model: RobertaModel = None, print_step: int = 1000):
     if not model:
         model = RobertaModel.from_pretrained(
             '../models/berdt',
@@ -34,7 +36,8 @@ def evaluate(words: List[str], path: Path = None, model: RobertaModel = None):
                 correct += 1
             total += 1
 
-            print(str(100 * correct / total) + "% correct", correct, total, predicted, expected, sentence)
+            if total % print_step == 0:
+                print("{0:.2f}%".format(100 * correct / total), correct, total, expected, predicted, sentence, sep=' / ')
 
     return correct, total
 
@@ -51,7 +54,5 @@ def create_parser():
 if __name__ == "__main__":
     parser = create_parser()
     args = parser.parse_args()
-
-    models_path = Path("..", "data", "processed", "wordlist")
 
     evaluate([x.strip() for x in args.words.split(",")], args.path)
