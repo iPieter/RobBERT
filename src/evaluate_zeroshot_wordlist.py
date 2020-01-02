@@ -48,4 +48,4 @@ if __name__ == "__main__":
             else:
                 incorrect += 1
 
-    print( str(correct/(correct+incorrect)) + "% correct" )
+    print( str(100*correct/(correct+incorrect)) + "% correct" )

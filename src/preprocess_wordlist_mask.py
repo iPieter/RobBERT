@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     output_path = models_path / (args.words.replace(',', '-') + ".tsv")
 
-    with open(output_path, mode='a') as output:
+    with open(output_path, mode='w') as output:
         with open(args.path) as input_file:
             number_of_lines_to_add = args.number
             for line in input_file:
