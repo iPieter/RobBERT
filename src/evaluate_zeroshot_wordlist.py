@@ -25,21 +25,30 @@ def evaluate(words: List[str], path: Path = None, model: RobertaModel = None, pr
 
     correct = 0
     total = 0
+    errors = 0
 
     with open(dataset_path) as input_file:
         for line in input_file:
             sentence, index = line.split('\t')
             expected = words[int(index.strip())]
 
-            predicted = wordlistfiller.find_optimal_word(sentence)
-            if predicted == expected:
-                correct += 1
-            total += 1
+            try:
+                predicted = wordlistfiller.find_optimal_word(sentence)
+                if predicted is None:
+                    errors += 1
+                elif predicted == expected:
+                    correct += 1
+                total += 1
 
-            if total % print_step == 0:
-                print("{0:.2f}%".format(100 * correct / total), correct, total, expected, predicted, sentence, sep=' / ')
+                if total % print_step == 0:
+                    print("{0:.2f}%".format(100 * correct / total),
+                          correct, total, str(errors) + " errors", expected, predicted, sentence, sep=' / ')
+            except ValueError:
+                print("Error with", line)
+                errors += 1
+                total += 1
 
-    return correct, total
+    return correct, total, errors
 
 
 def create_parser():
