@@ -37,7 +37,7 @@ def create_parser():
     parser = argparse.ArgumentParser(
         description="Preprocess the europarl corpus for the die-dat task."
     )
-    parser.add_argument("--path", help="Path to the corpus file.", metavar="path", default="data/europarl-v7.nl-en.nl")
+    parser.add_argument("--path", help="Path to the corpus file.", metavar="path", default="data/raw/europarl-v7.nl-en.nl")
     parser.add_argument("--full_sentence",
                         help="Storing full sentences separated by a separator, or partial sentences on both sides of the word",
                         action="store_true")
