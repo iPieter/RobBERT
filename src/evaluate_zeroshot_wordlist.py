@@ -2,10 +2,41 @@
 
 import argparse
 from pathlib import Path
+from typing import List
 
 from fairseq.models.roberta import RobertaModel
 
 from src.wordlistfiller import WordListFiller
+
+
+def evaluate(words: List[str], path: Path = None, model: RobertaModel = None):
+    if not model:
+        model = RobertaModel.from_pretrained(
+            '../models/berdt',
+            checkpoint_file='model.pt'
+        )
+        model.eval()
+
+    wordlistfiller = WordListFiller(words, model=model)
+
+    dataset_path = path if path is not None else models_path / ("-".join(words) + ".tsv")
+
+    correct = 0
+    total = 0
+
+    with open(dataset_path) as input_file:
+        for line in input_file:
+            sentence, index = line.split('\t')
+            expected = words[int(index.strip())]
+
+            predicted = wordlistfiller.find_optimal_word(sentence)
+            if predicted == expected:
+                correct += 1
+            total += 1
+
+            print(str(100 * correct / total) + "% correct", correct, total, predicted, expected, sentence)
+
+    return correct, total
 
 
 def create_parser():
@@ -23,29 +54,4 @@ if __name__ == "__main__":
 
     models_path = Path("..", "data", "processed", "wordlist")
 
-    berdt = RobertaModel.from_pretrained(
-        '../models/berdt',
-        checkpoint_file='model.pt'
-    )
-    berdt.eval()
-
-    words = [x.strip() for x in args.words.split(",")]
-    wordlistfiller = WordListFiller(words, model=berdt)
-
-    output_path = args.path if args.path is not None else models_path / (args.words.replace(',', '-') + ".tsv")
-
-    correct = 0
-    incorrect = 0
-
-    with open(output_path) as input_file:
-        for line in input_file:
-            sentence, index = line.split('\t')
-            expected = words[int(index.strip())]
-
-            predicted = wordlistfiller.find_optimal_word(sentence)
-            if predicted == expected:
-                correct += 1
-            else:
-                incorrect += 1
-
-    print( str(100*correct/(correct+incorrect)) + "% correct" )
+    evaluate([x.strip() for x in args.words.split(",")], args.path)
