@@ -1,13 +1,5 @@
 #!/bin/bash
 
-split -l $[ $(wc -l data/europarl-v7.nl-en.nl.labels|cut -d" " -f1) * 70 / 100 ] data/europarl-v7.nl-en.nl.labels
-mv xaa data/processed/diedat/train.labels
-mv xab data/processed/diedat/dev.labels
-
-split -l $[ $(wc -l data/europarl-v7.nl-en.nl.sentences|cut -d" " -f1) * 70 / 100 ] data/europarl-v7.nl-en.nl.sentences
-mv xaa data/processed/diedat/train.sentences
-mv xab data/processed/diedat/dev.sentences
-
 rm data/labels/dict.txt
 
 for SPLIT in train dev; do

@@ -1,10 +1,10 @@
-TOTAL_NUM_UPDATES=7812  # 10 epochs
-WARMUP_UPDATES=469      # 6 percent of the number of updates
+TOTAL_NUM_UPDATES=1570  # 10 epochs
+WARMUP_UPDATES=10       # 6 percent of the number of updates
 LR=1e-05                # Peak LR for polynomial LR scheduler.
-HEAD_NAME= die-dat-head # Custom name for the classification head.
+HEAD_NAME=die-dat       # Custom name for the classification head.
 NUM_CLASSES=2           # Number of classes for the classification task.
-MAX_SENTENCES=8         # Batch size.
-ROBERTA_PATH=data/checkpoint_best.pt
+MAX_SENTENCES=4         # Batch size.
+ROBERTA_PATH=checkpoints/checkpoint_best.pt
 
 fairseq-train data \
     --restore-file $ROBERTA_PATH \
@@ -22,8 +22,7 @@ fairseq-train data \
     --weight-decay 0.1 --optimizer adam --adam-betas "(0.9, 0.98)" --adam-eps 1e-06 \
     --clip-norm 0.0 \
     --lr-scheduler polynomial_decay --lr $LR --total-num-update $TOTAL_NUM_UPDATES --warmup-updates $WARMUP_UPDATES \
-    --fp16 --fp16-init-scale 4 --threshold-loss-scale 1 --fp16-scale-window 128 \
-    --max-epoch 10 \
+    --max-epoch 50 \
     --best-checkpoint-metric accuracy --maximize-best-checkpoint-metric \
     --truncate-sequence \
     --find-unused-parameters \

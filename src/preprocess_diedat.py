@@ -15,8 +15,7 @@ def replace_die_dat_full_sentence(line, flout, fout):
         elif word == "Dat":
             tokens[i] = "Die"
         elif word == "Die":
-            tokens[i] = "dat"
-
+            tokens[i] = "Dat"
         if word.lower() == "die" or word.lower() == "dat":
             choice = random.getrandbits(1)
             results = TreebankWordDetokenizer().detokenize(tokens)
