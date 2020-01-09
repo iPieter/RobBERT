@@ -1,11 +1,9 @@
-<p align="center"> 
-    <img src="logo.png" alt="Logo of BERDT" width="35%">
- </p>
+# RobBERT
 
 ![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
-A Dutch language model based on roBERTa with some tasks specific to Dutch. For now, we also provide the following fine-tuned heads:
+A Dutch language model based on RoBERTa with some tasks specific to Dutch. For now, we also provide the following fine-tuned heads:
 
 - Prediction of `die` or `dat` in sentences. Trained on 10k sentences.
 
@@ -28,7 +26,7 @@ wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/vocab.bpe'
 wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/dict.txt'
 ```
 
-# Fine-tuning a model
+# Downstream tasks: Fine-tuning the model
 In this section we describe how to use the scripts we provide to fine-tune models, hopefully this will be general enough to reuse for other tasks.
 
 ## Predicting the Dutch pronouns _die_ and _dat_
