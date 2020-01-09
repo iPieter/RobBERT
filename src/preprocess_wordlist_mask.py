@@ -4,7 +4,7 @@ from pathlib import Path
 from src.wordlistfiller import WordListFiller
 
 
-def create_parser():
+def create_arg_parser():
     parser = argparse.ArgumentParser(
         description="Preprocess the europarl corpus for the die-dat task."
     )
@@ -17,7 +17,7 @@ def create_parser():
 
 
 if __name__ == "__main__":
-    parser = create_parser()
+    parser = create_arg_parser()
     args = parser.parse_args()
 
     models_path = Path("..", "data", "processed", "wordlist")

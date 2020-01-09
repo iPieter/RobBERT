@@ -33,7 +33,7 @@ def replace_die_dat_full_sentence(line, flout, fout):
     return count
 
 
-def create_parser():
+def create_arg_parser():
     parser = argparse.ArgumentParser(
         description="Preprocess the europarl corpus for the die-dat task."
     )
@@ -45,7 +45,7 @@ def create_parser():
 
 
 if __name__ == "__main__":
-    parser = create_parser()
+    parser = create_arg_parser()
 
     args = parser.parse_args()
 

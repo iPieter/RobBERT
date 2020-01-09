@@ -29,7 +29,9 @@ wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/dict.txt'
 # Downstream tasks: Fine-tuning the model
 In this section we describe how to use the scripts we provide to fine-tune models, hopefully this will be general enough to reuse for other tasks.
 
-## Predicting the Dutch pronouns _die_ and _dat_
+## Classification
+
+### Predicting the Dutch pronouns _die_ and _dat_
 We fine-tune our model on the Dutch [Europarl corpus](http://www.statmt.org/europarl/). You can download it first with:
 
 ```
@@ -57,4 +59,9 @@ python src/preprocess_diedat.py data/europarl-v7.nl-en.nl
 
 _note: You can monitor the progress of the first preprocessing step with `watch -n 2 wc -l data/europarl-v7.nl-en.nl.sentences`. This will take a while, but it's certainly not needed to use all inputs. This is after all why you want to use a pre-trained language model. You can terminate the python script at any time and the second step will only use those._
 
+## Tagging
 
+### POS tagging
+- Download the [LASSY small dataset](https://ivdnt.org/downloads/taalmaterialen/tstc-lassy-klein-corpus).
+- Unzip the corpus such that /data/raw/LassySmall is the main folder
+- Run `preprocess_lassy.py`
