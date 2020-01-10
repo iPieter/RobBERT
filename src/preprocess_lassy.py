@@ -3,6 +3,8 @@ from pathlib import Path
 from os import listdir
 from os.path import isfile, join
 
+tags = ["--", "adj", "bw", "let", "lid", "n", "spec", "tsw", "tw", "vg", "vnw", "vz", "ww"]
+
 
 def create_arg_parser():
     parser = argparse.ArgumentParser(
@@ -13,6 +15,10 @@ def create_arg_parser():
     parser.add_argument("--number", help="Number of words in the output dataset", type=int, default=10000000)
 
     return parser
+
+
+def get_label_index(label_name):
+    return tags.index(label_name)
 
 
 def process_lassy(output, output_labels, path, max_words):
@@ -30,7 +36,7 @@ def process_lassy(output, output_labels, path, max_words):
 
                 # TODO: Output words and tags correctly
                 output.write(word.strip() + "\n")
-                output_labels.write(simple_tag.strip() + "\n")
+                output_labels.write(str(get_label_index(simple_tag.strip())) + "\n")
 
                 if words_processed >= max_words:
                     break
