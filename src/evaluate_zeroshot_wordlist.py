@@ -43,7 +43,7 @@ def evaluate(words: List[str], path: Path = None, model: RobertaModel = None, pr
                 if total % print_step == 0:
                     print("{0:.2f}%".format(100 * correct / total),
                           correct, total, str(errors) + " errors", expected, predicted, sentence, sep=' / ')
-            except ValueError:
+            except Exception:
                 print("Error with", line)
                 errors += 1
                 total += 1
