@@ -11,7 +11,8 @@ class BertMaskedLMAdapter:
         self._model = model if model else BertForMaskedLM.from_pretrained(model_name)
         self._model.eval()
 
-    def fill_mask(self, text, topk):
+    def fill_mask(self, text, topk=4):
+        text = text.replace("<mask>", "[MASK]")
         if not text.startswith("[CLS]"):
             text = "[CLS] " + text
         if not text.endswith("[SEP]"):
@@ -32,3 +33,9 @@ class BertMaskedLMAdapter:
         predicted_indices = list(np.argpartition(predictions[0][0][masked_index], -4)[-topk:])
         predicted_indices.reverse()
         return [self._tokenizer.convert_ids_to_tokens([predicted_index])[0] for predicted_index in predicted_indices]
+
+
+if __name__ == '__main__':
+    mlm = BertMaskedLMAdapter(model_name='bert-base-multilingual-uncased')
+    result = mlm.fill_mask("Er is een meisje <mask> daar loopt.", 1024)
+    print(result)

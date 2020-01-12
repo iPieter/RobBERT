@@ -1,13 +1,15 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 from fairseq.models.roberta import RobertaHubInterface
 from nltk import word_tokenize
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 
+from src.bert_masked_lm_adapter import BertMaskedLMAdapter
+
 
 class WordListFiller:
     def __init__(self, target_words: List[str],
-                 model: RobertaHubInterface = None,
+                 model: Union[RobertaHubInterface, BertMaskedLMAdapter] = None,
                  detokenizer: TreebankWordDetokenizer = TreebankWordDetokenizer(),
                  topk_limit=2048):
         self._model = model
@@ -39,4 +41,5 @@ class WordListFiller:
         return result
 
     def occlude_target_words_index(self, input_sentence: str) -> List[Tuple[str, int]]:
-        return [(s[0], self._target_words.index(s[1].strip().lower())) for s in self.occlude_target_words(input_sentence)]
+        return [(s[0], self._target_words.index(s[1].strip().lower())) for s in
+                self.occlude_target_words(input_sentence)]
