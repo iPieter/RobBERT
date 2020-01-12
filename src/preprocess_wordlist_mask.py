@@ -10,8 +10,10 @@ def create_arg_parser():
     )
     parser.add_argument("--path", help="Path to the corpus file.", metavar="path",
                         default="../data/raw/europarl-v7.nl-en.nl")
+    parser.add_argument("--filename", help="Extra for file name", metavar="path",
+                        default="")
     parser.add_argument("--words", help="List of comma-separated words to disambiguate", type=str, default="die,dat")
-    parser.add_argument("--number", help="Number of examples in the output dataset", type=int, default=10000)
+    parser.add_argument("--number", help="Number of examples in the output dataset", type=int, default=10000000)
 
     return parser
 
@@ -26,7 +28,8 @@ if __name__ == "__main__":
     words = [x.strip() for x in args.words.split(",")]
     wordlistfiller = WordListFiller(words)
 
-    output_path = models_path / (args.words.replace(',', '-') + ".tsv")
+    output_path = models_path / (args.words.replace(',', '-')
+                                 + (('.' + args.filename) if args.filename else '') + ".tsv")
 
     with open(output_path, mode='w') as output:
         with open(args.path) as input_file:
