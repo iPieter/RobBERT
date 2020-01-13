@@ -44,19 +44,10 @@ def process_lassy_ud(arguments, type, processed_data_path, raw_data_path):
 
                     file_path = raw_data_path / ("nl_lassysmall-ud-" + type + ".conllu")
                     with open(file_path) as file_to_read:
-                        # Add new line after seeing comments or new line
-                        new_line = False
                         # For removing first blank line
                         has_content = False
                         for line in file_to_read:
                             if not line.startswith("#") and len(line.strip()) > 0:
-
-                                if new_line and has_content:
-                                    output_sentences.write("\n")
-                                    output_labels.write("\n")
-                                    output_tokenized_sentences.write("\n")
-                                    output_tokenized_labels.write("\n")
-                                    new_line = False
                                 has_content = True
 
                                 index, word, main_word, universal_pos, detailed_tag, details, number, english_tag, \
@@ -69,9 +60,12 @@ def process_lassy_ud(arguments, type, processed_data_path, raw_data_path):
                                                                           output_labels,
                                                                           output_tokenized_sentences,
                                                                           output_tokenized_labels)
-
-                            else:
-                                new_line = True
+                            elif has_content:
+                                output_sentences.write("\n")
+                                output_labels.write("\n")
+                                output_tokenized_sentences.write("\n")
+                                output_tokenized_labels.write("\n")
+                                has_content = False
 
 
 if __name__ == "__main__":
