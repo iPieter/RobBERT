@@ -88,6 +88,6 @@ if __name__ == "__main__":
     processed_data_path = Path("..", "data", "processed", "lassy_ud")
     processed_data_path.mkdir(parents=True, exist_ok=True)
 
-    # process_lassy_ud('train', processed_data_path, Path(args.path))
-    # process_lassy_ud('dev', processed_data_path, Path(args.path))
+    process_lassy_ud(args, 'train', processed_data_path, Path(args.path))
+    process_lassy_ud(args, 'dev', processed_data_path, Path(args.path))
     process_lassy_ud(args, 'test', processed_data_path, Path(args.path))
