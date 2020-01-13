@@ -1,11 +1,10 @@
 import argparse
 from pathlib import Path
 
-from src.multiprocessing_bpe_encoder import MultiprocessingEncoder
+from src import preprocess_util
 
 universal_pos_tags = ["ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ",
                       "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"]
-seperator_token = "\t"
 
 
 def create_arg_parser():
@@ -17,13 +16,13 @@ def create_arg_parser():
     parser.add_argument(
         "--encoder-json",
         help='path to encoder.json',
-                        default="../models/robbert/encoder.json"
+        default="../models/robbert/encoder.json"
     )
     parser.add_argument(
         "--vocab-bpe",
         type=str,
         help='path to vocab.bpe',
-                        default="../models/robbert/vocab.bpe"
+        default="../models/robbert/vocab.bpe"
     )
 
     return parser
@@ -34,13 +33,9 @@ def get_label_index(label_name):
 
 
 def process_lassy_ud(arguments, type, processed_data_path, raw_data_path):
-    output_sentences_path = processed_data_path / (type + ".sentences.tsv")
-    output_labels_path = processed_data_path / (type + ".labels.tsv")
-    output_tokenized_sentences_path = processed_data_path / (type + ".sentences.bpe")
-    output_tokenized_labels_path = processed_data_path / (type + ".labels.bpe")
-
-    tokenizer = MultiprocessingEncoder(arguments)
-    tokenizer.initializer()
+    output_sentences_path, output_labels_path, output_tokenized_sentences_path, output_tokenized_labels_path = preprocess_util.get_sequence_file_paths(
+        processed_data_path, type)
+    tokenizer = preprocess_util.get_tokenizer(arguments)
 
     with open(output_sentences_path, mode='w') as output_sentences:
         with open(output_labels_path, mode='w') as output_labels:
@@ -68,14 +63,12 @@ def process_lassy_ud(arguments, type, processed_data_path, raw_data_path):
                                 number_and_english_tag, space_after = line.split("\t")
 
                                 # Write out normal word & label
+                                word = word.strip()
                                 label = str(get_label_index(universal_pos.strip()))
-                                output_sentences.write(word.strip() + seperator_token)
-                                output_labels.write(label + seperator_token)
-
-                                # Write tokenized
-                                tokenized_word = tokenizer.encode(word.strip())
-                                output_tokenized_sentences.write(seperator_token.join(tokenized_word) + seperator_token)
-                                output_tokenized_labels.write(len(tokenized_word) * (label + seperator_token))
+                                preprocess_util.write_sequence_word_label(word, label, tokenizer, output_sentences,
+                                                                          output_labels,
+                                                                          output_tokenized_sentences,
+                                                                          output_tokenized_labels)
 
                             else:
                                 new_line = True
