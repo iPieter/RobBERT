@@ -62,6 +62,7 @@ _note: You can monitor the progress of the first preprocessing step with `watch 
 ## Tagging
 
 ### POS tagging
-- Download the [LASSY small dataset](https://ivdnt.org/downloads/taalmaterialen/tstc-lassy-klein-corpus).
-- Unzip the corpus such that /data/raw/LassySmall is the main folder
-- Run `preprocess_lassy.py`
+- Download the [Universal Dependencies LASSY small dataset](https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-3105).
+- Unzip the file, then unzip `ud-treebanks-v2.5`, then place the `UD_Dutch-LassySmall` such that
+`/data/raw/UD_Dutch-LassySmall` is the main folder
+- Run `preprocess_lassy_ud.py`

@@ -3,6 +3,7 @@ from pathlib import Path
 from os import listdir
 from os.path import isfile, join
 
+#TODO: Add correct full list of tags
 tags = ["--", "adj", "bw", "let", "lid", "n", "spec", "tsw", "tw", "vg", "vnw", "vz", "ww"]
 
 
