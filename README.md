@@ -65,4 +65,11 @@ _note: You can monitor the progress of the first preprocessing step with `watch 
 - Download the [Universal Dependencies LASSY small dataset](https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-3105).
 - Unzip the file, then unzip `ud-treebanks-v2.5`, then place the `UD_Dutch-LassySmall` such that
 `/data/raw/UD_Dutch-LassySmall` is the main folder
-- Run `preprocess_lassy_ud.py`
+- Run `src/preprocess_lassy_ud.py`
+
+### NER
+- Download CONLL-2002 dataset by downloading the Dutch files from [https://github.com/teropa/nlp/tree/master/resources/corpora/conll2002](https://github.com/teropa/nlp/tree/master/resources/corpora/conll2002)
+- Place the files in `/data/raw/conll2002/`
+- Run `src/preprocess_conll2002_ner.py`
+- Fine-tune RobBERT with the processed data in `data/proecssed/conll2002_ner/`
+- Evaluate with this guide: [https://github.com/stefan-it/flair-experiments/blob/master/conll2002-ner-dutch/README.md#evaluation](https://github.com/stefan-it/flair-experiments/blob/master/conll2002-ner-dutch/README.md#evaluation)
