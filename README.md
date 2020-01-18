@@ -59,17 +59,4 @@ python src/preprocess_diedat.py data/europarl-v7.nl-en.nl
 
 _note: You can monitor the progress of the first preprocessing step with `watch -n 2 wc -l data/europarl-v7.nl-en.nl.sentences`. This will take a while, but it's certainly not needed to use all inputs. This is after all why you want to use a pre-trained language model. You can terminate the python script at any time and the second step will only use those._
 
-## Tagging
-
-### POS tagging
-- Download the [Universal Dependencies LASSY small dataset](https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-3105).
-- Unzip the file, then unzip `ud-treebanks-v2.5`, then place the `UD_Dutch-LassySmall` such that
-`/data/raw/UD_Dutch-LassySmall` is the main folder
-- Run `src/preprocess_lassy_ud.py`
-
-### NER
-- Download CONLL-2002 dataset by downloading the Dutch files from [https://github.com/teropa/nlp/tree/master/resources/corpora/conll2002](https://github.com/teropa/nlp/tree/master/resources/corpora/conll2002)
-- Place the files in `/data/raw/conll2002/`
-- Run `src/preprocess_conll2002_ner.py`
-- Fine-tune RobBERT with the processed data in `data/proecssed/conll2002_ner/`
-- Evaluate with this guide: [https://github.com/stefan-it/flair-experiments/blob/master/conll2002-ner-dutch/README.md#evaluation](https://github.com/stefan-it/flair-experiments/blob/master/conll2002-ner-dutch/README.md#evaluation)
+ub.com/stefan-it/flair-experiments/blob/master/conll2002-ner-dutch/README.md#evaluation](https://github.com/stefan-it/flair-experiments/blob/master/conll2002-ner-dutch/README.md#evaluation)
