@@ -11,10 +11,17 @@ A Dutch language model based on [RoBERTa](https://github.com/pytorch/fairseq/tre
 
 RobBERT can easily be used in two different ways, namely either using [Fairseq RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta) code or using [HuggingFace Transformers](https://github.com/huggingface/transformers)
 
-### Using Huggingface transformers
+### Using Huggingface Transformers
 
-(to do: write)
+You can download your model for 🤗 Transformers directly. You can use the following code to download the base model and finetune it yourself. We'll explain how to do that in the next section!
 
+```python 
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+tokenizer = AutoTokenizer.from_pretrained("pdelobelle/Robbert-base")
+model = AutoModelForSequenceClassification.from_pretrained("pdelobelle/robbert-base")
+```
+
+Or you can also download a model that we finetuned. Check [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) for a list of all models. 
 
 ### Using Fairseq
 
