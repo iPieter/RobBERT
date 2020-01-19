@@ -21,7 +21,7 @@ tokenizer = AutoTokenizer.from_pretrained("pdelobelle/Robbert-base")
 model = AutoModelForSequenceClassification.from_pretrained("pdelobelle/robbert-base")
 ```
 
-Or you can also download a model that we finetuned. Check [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) for a list of all models. 
+Or you can also download a model that we finetuned. Check [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) for a list of all models, the base model is available as `pdelobelle/robbert-base`.
 
 ### Using Fairseq
 
@@ -36,7 +36,7 @@ wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/vocab.bpe'
 wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/dict.txt'
 ```
 
-Then download our model from [todo]
+Then download our Fairseq model from here [(RobBERT-base, 1.5 GB)](https://github.com/iPieter/BERDT/releases/download/v1.0/RobBERT-base.pt). 
 
 You can then use all functions of [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta), but using RobBERT's model.pt.
 
@@ -61,8 +61,8 @@ In this section we describe how to use the scripts we provide to fine-tune model
 #### Sentiment analysis using the Dutch Book Review Dataset
 
 - Download the Dutch book review dataset from [https://github.com/benjaminvdb/110kDBRD](https://github.com/benjaminvdb/110kDBRD), and save it to `data/raw/110kDBRD`
-- Run `src/preprocess_dbrd.py`
-- (TODO: write)
+- Run `src/preprocess_dbrd.py` to prepare the dataset.
+- Follow the notebook `notebooks/finetune_dbrd.ipynb` to finetune the model.
 
 #### Predicting the Dutch pronouns _die_ and _dat_
 We fine-tune our model on the Dutch [Europarl corpus](http://www.statmt.org/europarl/). You can download it first with:
