@@ -1,11 +1,16 @@
-# RobBERT
+<p align="center"> 
+    <img src="res/robbert_logo_with_name.png" alt="RobBERT: A Dutch RoBERTa-based Language Model" width="75%">
+ </p>
+
 
 ![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+![GitHub](https://img.shields.io/github/license/ipieter/RobBERT)
 
+# RobBERT
 A Dutch language model based on [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta) with some tasks specific to Dutch.
 
-<img src="./res/robbert_logo.png" alt="RobBERT logo" width="300"/>
+Read more on our [blog post](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) or on the [paper](https://arxiv.org/abs/2001.06286).
 
 ## Getting started
 
@@ -89,3 +94,21 @@ python src/preprocess_diedat.py data/europarl-v7.nl-en.nl
 ```
 
 note: You can monitor the progress of the first preprocessing step with `watch -n 2 wc -l data/europarl-v7.nl-en.nl.sentences`. This will take a while, but it's certainly not needed to use all inputs. This is after all why you want to use a pre-trained language model. You can terminate the python script at any time and the second step will only use those._
+
+## Credits and citation
+We are grateful to Liesbeth Allein, for her work on die-dat disambiguation, Huggingface for their transformer package, Facebook for their Fairseq package and all other people whose work we could use. 
+
+We release our models and this code under MIT. 
+
+Even though MIT doesn't require it, we would like to ask if you could nevertheless cite our paper if it helped you!
+
+```
+@misc{delobelle2020robbert,
+    title={RobBERT: a Dutch RoBERTa-based Language Model},
+    author={Pieter Delobelle and Thomas Winters and Bettina Berendt},
+    year={2020},
+    eprint={2001.06286},
+    archivePrefix={arXiv},
+    primaryClass={cs.CL}
+}
+```
