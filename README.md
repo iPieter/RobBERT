@@ -69,6 +69,7 @@ In this section we describe how to use the scripts we provide to fine-tune model
 
 - Download the Dutch book review dataset from [https://github.com/benjaminvdb/110kDBRD](https://github.com/benjaminvdb/110kDBRD), and save it to `data/raw/110kDBRD`
 - Run `src/preprocess_dbrd.py` to prepare the dataset.
+- To not be blind during training, we recommend to keep aside a small evaluation set from the training set. For this run `src/split_dbrd_training.sh`.
 - Follow the notebook `notebooks/finetune_dbrd.ipynb` to finetune the model.
 
 #### Predicting the Dutch pronouns _die_ and _dat_

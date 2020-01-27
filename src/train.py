@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader, Dataset, RandomSampler, SequentialSampl
 import os
 from tqdm import tqdm, trange
 import pandas as pd
+from pycm import ConfusionMatrix
 
 try:
     from torch.utils.tensorboard import SummaryWriter
