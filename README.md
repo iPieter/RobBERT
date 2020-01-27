@@ -21,10 +21,12 @@ RobBERT can easily be used in two different ways, namely either using [Fairseq R
 You can download your model for 🤗 Transformers directly. You can use the following code to download the base model and finetune it yourself. We'll explain how to do that in the next section!
 
 ```python 
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-tokenizer = AutoTokenizer.from_pretrained("pdelobelle/Robbert-base")
-model = AutoModelForSequenceClassification.from_pretrained("pdelobelle/robbert-base")
+from transformers import RobertaTokenizer, RobertaForSequenceClassification
+tokenizer = RobertaTokenizer.from_pretrained("pdelobelle/robBERT-base")
+model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robBERT-base")
 ```
+
+**Watch the casing and use `Roberta...` instead of `Auto...`**, as the Transformer's library uses the name to determine which tokenizer and model to use. In our name, there is no RoBERTa however, so it would switch to BERT instead.
 
 Or you can also download a model that we finetuned. Check [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) for a list of all models, the base model is available as `pdelobelle/robbert-base`.
 
