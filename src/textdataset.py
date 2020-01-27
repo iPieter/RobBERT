@@ -9,9 +9,9 @@ logger = logging.getLogger(__name__)
 
 class TextDataset(Dataset):
     def __init__(self, tokenizer, model_name_or_path, file_path="train", block_size=512, overwrite_cache=True, mask_padding_with_zero=True):
-        assert os.path.isfile(file_path + '.sentences')
+        assert os.path.isfile(file_path + '.sentences.txt')
 
-        assert os.path.isfile(file_path + '.labels')
+        assert os.path.isfile(file_path + '.labels.txt')
 
         directory, filename = os.path.split(file_path)
         cached_features_file = os.path.join(
@@ -26,8 +26,8 @@ class TextDataset(Dataset):
             logger.info("Creating features from dataset file at %s", directory)
 
             self.examples = []
-            with open(file_path + ".labels", encoding="utf-8") as flabel:
-                with open(file_path + ".sentences", encoding="utf-8") as f:
+            with open(file_path + ".labels.txt", encoding="utf-8") as flabel:
+                with open(file_path + ".sentences.txt", encoding="utf-8") as f:
                     for sentence in f:
                         tokenized_text = tokenizer.encode(tokenizer.tokenize(sentence)[-block_size + 3 : -1])
 
