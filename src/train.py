@@ -3,6 +3,7 @@ import torch
 from torch.utils.data import DataLoader, Dataset, RandomSampler, SequentialSampler
 import os
 from tqdm import tqdm, trange
+import pandas as pd
 
 try:
     from torch.utils.tensorboard import SummaryWriter
@@ -17,7 +18,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Train:
-    def train(args, train_dataset, model, tokenizer):
+    def train(args, train_dataset, model, tokenizer, evaluate_fn=None):
         """ Train the model """
 
         model.train()
@@ -212,6 +213,16 @@ class Train:
             if args.max_steps > 0 and global_step > args.max_steps:
                 train_iterator.close()
                 break
+                
+            if evaluate_fn is not None:
+                results = pd.DataFrame(evaluate_fn(args.evaluate_dataset, model))
+                cm = ConfusionMatrix(actual_vector=results['true'].values, predict_vector=results['predicted'].values)
+                logs = {}
+                logs["eval_f1_macro"] = cm.F1_Macro
+                logs["eval_acc_macro"] = cm.ACC_Macro
+                logs["eval_acc_overall"] = cm.Overall_ACC
+                logger.info("Results on eval: {}".format(logs))
+
 
         if args.local_rank in [-1, 0]:
             tb_writer.close()
