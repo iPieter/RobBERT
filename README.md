@@ -26,7 +26,7 @@ tokenizer = RobertaTokenizer.from_pretrained("pdelobelle/robBERT-base")
 model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robBERT-base")
 ```
 
-**Watch the casing and use `Roberta...` instead of `Auto...`**, as the Transformer's library uses the name to determine which tokenizer and model to use. In our name, there is no RoBERTa however, so it would switch to BERT instead.
+**Watch the casing**, as the Transformer's library uses the name to determine which tokenizer and model to use. Starting with `transformers v2.4.0` (or installing from source), you can use AutoTokenizer and AutoModel, as it now uses a `model_type: "roberta"` attribute in the model's `config.json`.
 
 Or you can also download a model that we finetuned. Check [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) for a list of all models, the base model is available as `pdelobelle/robbert-base`.
 
