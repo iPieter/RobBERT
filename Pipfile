@@ -9,6 +9,8 @@ verify_ssl = true
 fairseq = "*"
 nltk = "*"
 transformers = "*"
+tensorboardx = "*"
+tokenizers = "~=0.4.2"
 
 [requires]
 python_version = "3.7"
