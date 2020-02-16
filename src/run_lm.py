@@ -139,8 +139,12 @@ class LineByLineTextDataset(Dataset):
 
         logger.info("Creating features from dataset file at %s", file_path)
 
+        self.examples = []
+
         with open(file_path, encoding="utf-8") as f:
-            self.examples = [line for line in f.read().splitlines() if (len(line) > 0 and not line.isspace())]
+            for line in f:
+                if len(line) > 0 and not line.isspace():
+                    self.examples.append(line)
 
     def __len__(self):
         return len(self.examples)
