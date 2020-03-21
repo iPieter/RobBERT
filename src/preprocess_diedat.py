@@ -38,7 +38,7 @@ def create_arg_parser():
         description="Preprocess the europarl corpus for the die-dat task."
     )
     parser.add_argument("--path", help="Path to the corpus file.", metavar="path",
-                        default="data/raw/europarl-v7.nl-en.nl")
+                        default="data/raw/europarl/europarl-v7.nl-en.nl")
     parser.add_argument("--number", help="Number of examples in the output dataset", type=int, default=10000)
 
     return parser
