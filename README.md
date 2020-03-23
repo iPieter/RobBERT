@@ -92,8 +92,8 @@ Then you can run the preprocessing with the following script, which fill first p
 Afterwards, it will flip the pronoun and join both sentences together with a `<sep>` token.
 
 ```
-python src/preprocess_diedat.py data/europarl-v7.nl-en.nl
-./preprocess_diedat.sh
+python src/preprocess_diedat.py
+. src/preprocess_diedat.sh
 ```
 
 note: You can monitor the progress of the first preprocessing step with `watch -n 2 wc -l data/europarl-v7.nl-en.nl.sentences`. This will take a while, but it's certainly not needed to use all inputs. This is after all why you want to use a pre-trained language model. You can terminate the python script at any time and the second step will only use those._
