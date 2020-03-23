@@ -1,4 +1,7 @@
 #!/bin/bash
+
+cd data/processed/dbrd
+
 mv train.sentences.txt traineval.sentences.txt
 mv train.labels.txt traineval.labels.txt
 echo "renamed files to traineval.*.txt"
