@@ -8,7 +8,7 @@ def create_arg_parser():
     parser = argparse.ArgumentParser(
         description="Preprocess the Dutch Book Reviews Dataset corpus for the sentiment analysis tagging task."
     )
-    parser.add_argument("--path", help="Path to the corpus folder.", metavar="path", default="../data/raw/110kDBRD/")
+    parser.add_argument("--path", help="Path to the corpus folder.", metavar="path", default="data/raw/110kDBRD/")
 
     return parser
 
