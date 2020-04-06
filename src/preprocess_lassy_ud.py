@@ -13,17 +13,6 @@ def create_arg_parser():
     )
     parser.add_argument("--path", help="Path to the corpus file.", metavar="path",
                         default="../data/raw/UD_Dutch-LassySmall/")
-    parser.add_argument(
-        "--encoder-json",
-        help='path to encoder.json',
-        default="../models/robbert/encoder.json"
-    )
-    parser.add_argument(
-        "--vocab-bpe",
-        type=str,
-        help='path to vocab.bpe',
-        default="../models/robbert/vocab.bpe"
-    )
 
     return parser
 
@@ -35,7 +24,10 @@ def get_label_index(label_name):
 def process_lassy_ud(arguments, type, processed_data_path, raw_data_path):
     output_sentences_path, output_labels_path, output_tokenized_sentences_path, output_tokenized_labels_path = preprocess_util.get_sequence_file_paths(
         processed_data_path, type)
-    tokenizer = preprocess_util.get_tokenizer(arguments)
+
+    with open(Path(processed_data_path, "labels.txt"), "w") as labels:
+        for l in universal_pos_tags:
+            labels.write(l + "\n")
 
     with open(output_sentences_path, mode='w') as output_sentences:
         with open(output_labels_path, mode='w') as output_labels:
@@ -56,10 +48,8 @@ def process_lassy_ud(arguments, type, processed_data_path, raw_data_path):
                                 # Write out normal word & label
                                 word = word.strip()
                                 label = str(get_label_index(universal_pos.strip()))
-                                preprocess_util.write_sequence_word_label(word, label, tokenizer, output_sentences,
-                                                                          output_labels,
-                                                                          output_tokenized_sentences,
-                                                                          output_tokenized_labels)
+                                output_tokenized_labels.write(word + " " + universal_pos.strip() + "\n")
+
                             elif has_content:
                                 output_sentences.write("\n")
                                 output_labels.write("\n")

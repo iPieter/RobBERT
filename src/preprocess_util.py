@@ -7,7 +7,7 @@ def get_sequence_file_paths(processed_data_path, type):
     output_sentences_path = processed_data_path / (type + ".sentences.tsv")
     output_labels_path = processed_data_path / (type + ".labels.tsv")
     output_tokenized_sentences_path = processed_data_path / (type + ".sentences.bpe")
-    output_tokenized_labels_path = processed_data_path / (type + ".labels.bpe")
+    output_tokenized_labels_path = processed_data_path / (type + ".txt")
     return output_sentences_path, output_labels_path, output_tokenized_sentences_path, output_tokenized_labels_path
 
 
