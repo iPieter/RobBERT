@@ -66,10 +66,9 @@ def create_app(model_path: str, device="cpu"):
 
     @app.route('/', methods=["POST"])
     def hello_world():
-        print(request.form['sentence'])
         sentence = request.form['sentence']
         query = replace_query_token(sentence)
-        print(query)
+
         tokenized_text = tokenizer.encode(tokenizer.tokenize(query)[- block_size + 3: -1])
 
         input_mask = [1 if mask_padding_with_zero else 0] * len(tokenized_text)
@@ -89,9 +88,15 @@ def create_app(model_path: str, device="cpu"):
         with torch.no_grad():
             outputs = robbert(**inputs)
 
-            rating = int(outputs[1].argmax().numpy())
-            confidence = float(outputs[1][0, rating].numpy())
-            return json.dumps({"rating": rating, "interpretation": "incorrect" if rating == 1 else "correct",
-                               "confidence": confidence, "sentence": sentence})
+            rating = outputs[1].argmax().item()
+            confidence = outputs[1][0, rating].item()
+
+            response = {"rating": rating, "interpretation": "incorrect" if rating == 1 else "correct",
+                        "confidence": confidence, "sentence": sentence}
+
+            # This would be a good place for logging/storing queries + results
+            print(response)
+
+            return json.dumps(response)
 
     return app
