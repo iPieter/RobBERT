@@ -1,7 +1,7 @@
 # Demo: 'die' vs 'dat' as a rest endpoint with Flask
 
 As a demo, we release a small Flask example for a rest endpoint to analyse sentences. 
-It will return whether a sentence contains the correct---according to RobBERT---use of 'die' or 'dat'.
+It will return whether a sentence contains the correct—according to RobBERT—use of 'die' or 'dat'.
 
 By default, A Flask server will listen to port 5000. The endpoint is `/`.
 
@@ -15,7 +15,7 @@ $ python app.py
 And then make a http POST request to `/` with the parameter `sentence` filled in:
 
 ```shell script
-$ curl --data "sentence=Daar loopt _die_ meisje_." localhost:5000
+$ curl --data "sentence=Daar loopt _die_ meisje." localhost:5000
 ```
 
 This should give you the following response:
