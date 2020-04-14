@@ -1,7 +1,7 @@
 import unittest
 from io import StringIO
 
-from src.convert_roberta_dict import load_roberta_mapping
+from src.convert_roberta_dict import load_roberta_mapping, map_roberta
 
 
 class ConvertRobertaTestCase(unittest.TestCase):
@@ -14,6 +14,22 @@ class ConvertRobertaTestCase(unittest.TestCase):
         self.assertEqual(mapping['3'], 0, msg="First element in dict.txt is 3, should have id = 0")
         self.assertEqual(mapping['1'], 1, msg="Second element in dict.txt is 1, should have id = 1")
         self.assertEqual(mapping['2'], 2, msg="Third element in dict.txt is 2, should have id = 2")
+
+    def test_map_roberta(self):
+        file = StringIO(initial_value="3 12\n1 8\n2 7")
+        mapping = load_roberta_mapping(file)
+
+        vocab = {"Een": 3, "Twee": 2, "Drie": 1}
+
+        output_vocab = map_roberta(mapping, vocab)
+
+        self.assertEqual(output_vocab['<s>'], 0, msg="Extra tokens")
+        self.assertEqual(output_vocab['<pad>'], 1, msg="Extra tokens")
+        self.assertEqual(output_vocab['</s>'], 2, msg="Extra tokens")
+        self.assertEqual(output_vocab['<unk>'], 3, msg="Extra tokens")
+        self.assertEqual(output_vocab['Een'], 4, msg="'Een' has vocab_id = 3, which is mapped to 0 (+4)")
+        self.assertEqual(output_vocab['Twee'], 6, msg="'Twee' has vocab_id = 3, which is mapped to 2 (+4)")
+        self.assertEqual(output_vocab['Drie'], 5, msg="'Drie' has vocab_id = 1, which is mapped to 1 (+4)")
 
     def test_tokenization(self):
         sample_input = "De tweede poging: nog een test van de tokenizer met nummers."

@@ -40,8 +40,23 @@ def load_roberta_mapping(file):
     return lines
 
 
-def map_roberta():
-    pass
+def map_roberta(mapping, vocab):
+    "Combine vocab.json and dict.txt contents."
+    inverse_vocab = {str(v): k for k, v in vocab.items()}
+
+    # We add 4 extra tokens, so they also need to be added to the position id
+    EXTRA_TOKENS = {'<s>': 0, '<pad>': 1, '</s>': 2, '<unk>': 3}
+    offset = len(EXTRA_TOKENS)
+
+    output_vocab = EXTRA_TOKENS
+
+    for word_id, position in mapping.items():
+        if word_id in inverse_vocab:
+            output_vocab[inverse_vocab[word_id]] = position + offset
+        else:
+            print("not found: {}".format(word_id))
+
+    return output_vocab
 
 def main(args: argparse.Namespace):
     "Merge a vocab.json file with a dict.txt created by Fairseq."
@@ -54,19 +69,7 @@ def main(args: argparse.Namespace):
     with open(args.vocab_bpe, encoding="utf-8") as vocab_fp:
         vocab = json.load(vocab_fp)
 
-    inverse_vocab = {str(v): k for k, v in vocab.items()}
-
-    # We add 4 extra tokens, so they also need to be added to the position id
-    EXTRA_TOKENS = {'<s>': 0, '<pad>': 1, '</s>': 2, '<unk>':3 }
-    offset = len(EXTRA_TOKENS)
-
-    output_vocab = EXTRA_TOKENS
-
-    for word_id, position in mapping.items():
-        if word_id in inverse_vocab:
-            output_vocab[inverse_vocab[word_id]] = position + offset
-        else:
-            print("not found: {}".format(word_id))
+    output_vocab = map_roberta(vocab)
 
     with open(args.output_vocab, "w", encoding="utf-8") as output_fp:
         json.dump(output_vocab, output_fp, ensure_ascii=False)
