@@ -16,7 +16,7 @@ def create_arg_parser():
     parser.add_argument(
         "--encoder-json",
         help='path to encoder.json',
-        default="../models/robbert/encoder.json"
+        default="../models/robbert.large/encoder.json"
     )
     parser.add_argument(
         "--vocab-bpe",
