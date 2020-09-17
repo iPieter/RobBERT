@@ -1,4 +1,4 @@
-# Class for evaluating the base BERDT model on a word list classification task without any fine tuning.
+# Class for evaluating the base RobBERT model on a word list classification task without any fine tuning.
 
 import argparse
 from pathlib import Path
@@ -14,7 +14,7 @@ models_path = Path("..", "data", "processed", "wordlist")
 def evaluate(words: List[str], path: Path = None, model: RobertaModel = None, print_step: int = 1000):
     if not model:
         model = RobertaModel.from_pretrained(
-            '../models/berdt',
+            '../models/robbert',
             checkpoint_file='model.pt'
         )
         model.eval()
