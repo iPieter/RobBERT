@@ -138,7 +138,20 @@ In between training jobs on the computing cluster, 2 Nvidia 1080 Ti's also cover
 
 ## Limitations and bias
 
-Provide examples of latent issues and potential remediations.
+In the [RobBERT paper](https://arxiv.org/abs/2001.06286), we also investigated potential sources of bias in RobBERT.
+
+We found that the zeroshot model estimates the probability of *hij* (he) to be higher than *zij* (she) for most occupations in bleached template sentences, regardless of their actual job gender ratio in reality.
+
+<p align="center"> 
+    <img src="https://github.com/iPieter/RobBERT/blob/master/res/gender_diff.png" alt="RobBERT's performance on smaller datasets">
+ </p>
+
+By augmenting the DBRB Dutch Book sentiment analysis dataset with the stated gender of the author of the review, we found that highly positive reviews written by women were generally more accurately detected by RobBERT as being positive than those written by men.
+
+<p align="center"> 
+    <img src="https://github.com/iPieter/RobBERT/blob/master/res/dbrd.png" alt="RobBERT's performance on smaller datasets">
+ </p>
+
 
 
 ## BibTeX entry and citation info
