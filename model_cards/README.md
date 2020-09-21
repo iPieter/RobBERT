@@ -22,8 +22,8 @@ More detailled information can be found in the [RobBERT paper](https://arxiv.org
 
 ```python
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
-tokenizer = RobertaTokenizer.from_pretrained("pdelobelle/robBERT-base")
-model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robBERT-base")
+tokenizer = RobertaTokenizer.from_pretrained("pdelobelle/robbert-v2-dutch-base")
+model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robbert-v2-dutch-base")
 ```
 
 ## Performance Evaluation Results

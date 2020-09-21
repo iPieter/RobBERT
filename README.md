@@ -8,7 +8,7 @@
 ![GitHub](https://img.shields.io/github/license/ipieter/RobBERT)
 
 # RobBERT
-A Dutch language model based on [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta) with some tasks specific to Dutch.
+RobBERT is a Dutch state-of-the-art language model based on [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta).
 
 Read more on our [blog post](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) or on the [paper](https://arxiv.org/abs/2001.06286).
 
@@ -18,43 +18,162 @@ RobBERT can easily be used in two different ways, namely either using [Fairseq R
 
 ### Using Huggingface Transformers
 
-You can download your model for 🤗 Transformers directly. You can use the following code to download the base model and finetune it yourself. We'll explain how to do that in the next section!
+You can easily download RobBERT v2 using [🤗 Transformers](https://github.com/huggingface/transformers).
+Use the following code to download the base model and finetune it yourself, or use one of our finetuned models (documented on  [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/)).
 
-```python 
+```python
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
-tokenizer = RobertaTokenizer.from_pretrained("pdelobelle/robBERT-base")
-model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robBERT-base")
+tokenizer = RobertaTokenizer.from_pretrained("pdelobelle/robbert-v2-dutch-base")
+model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robbert-v2-dutch-base")
 ```
 
-**Watch the casing**, as the Transformer's library uses the name to determine which tokenizer and model to use. Starting with `transformers v2.4.0` (or installing from source), you can use AutoTokenizer and AutoModel, as it now uses a `model_type: "roberta"` attribute in the model's `config.json`.
-
-Or you can also download a model that we finetuned. Check [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) for a list of all models, the base model is available as `pdelobelle/robbert-base`.
+Starting with `transformers v2.4.0` (or installing from source), you can use AutoTokenizer and AutoModel.
 
 ### Using Fairseq
 
-You can also use RobBERT using the RoBERTa architecture code.
-We use the same encoder and dictionary as [Fairseq](https://github.com/pytorch/fairseq/), which you can download like this (use curl on Mac OS): 
+Alternatively, you can also use RobBERT using the [RoBERTa architecture code]((https://github.com/pytorch/fairseq/tree/master/examples/roberta)).
+You can download RobBERT v2's Fairseq model here: [(RobBERT-base, 1.5 GB)](https://github.com/iPieter/BERDT/releases/download/v1.0/RobBERT-base.pt). 
+Using RobBERT's `model.pt`, this method allows you to use all other functionalities of [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta).
 
-```
-mkdir data
-cd data
-wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/encoder.json'
-wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/vocab.bpe'
-wget -N 'https://dl.fbaipublicfiles.com/fairseq/gpt2_bpe/dict.txt'
-```
 
-Then download our Fairseq model from here [(RobBERT-base, 1.5 GB)](https://github.com/iPieter/BERDT/releases/download/v1.0/RobBERT-base.pt). 
 
-You can then use all functions of [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta), but using RobBERT's model.pt.
 
-## Heads
+## Performance Evaluation Results
 
-We also provide the following fine-tuned heads:
+All experiments are described in more detail in our [paper](https://arxiv.org/abs/2001.06286).
 
-- Prediction of `die` or `dat` in sentences as a classification problem (trained on [EuroParl](http://www.statmt.org/europarl/) sentences)
-- Sentiment analysis (trained on [DBRD](https://github.com/benjaminvdb/110kDBRD))
+### Sentiment analysis
+Predicting whether a review is positive or negative using the [Dutch Book Reviews Dataset](https://github.com/benjaminvdb/110kDBRD).
 
-## Experiments from paper
+|   Model           | Accuracy [%]             |
+|-------------------|--------------------------|
+| ULMFiT            | 93.8                     |
+| BERTje            | 93.0                     |
+| RobBERT v2        | **95.1**                 |
+
+### Die/Dat (coreference resolution)
+
+We measured how well the models are able to do coreference resolution by predicting whether "die" or "dat" should be filled into a sentence.
+For this, we used the [EuroParl corpus](https://www.statmt.org/europarl/).
+
+#### Finetuning on whole dataset
+
+|   Model           | Accuracy [%]             |  F1 [%]    |
+|-------------------|--------------------------|--------------|
+| [Baseline](https://arxiv.org/abs/2001.02943) (LSTM)   |                          | 75.03        |
+| mBERT             | 98.285                   | 98.033       |
+| BERTje            | 98.268                   | 98.014       |
+| RobBERT v2        | **99.232**               | **99.121**   |
+
+#### Finetuning on 10K examples
+
+We also measured the performance using only 10K training examples.
+This experiment clearly illustrates that RobBERT outperforms other models when there is little data available.
+
+|   Model           | Accuracy [%]             |  F1 [%]      |
+|-------------------|--------------------------|--------------|
+| mBERT             | 92.157                   | 90.898       |
+| BERTje            | 93.096                   | 91.279       |
+| RobBERT v2        | **97.816**               | **97.514**   |
+
+#### Using zero-shot word masking task
+
+Since BERT models are pre-trained using the word masking task, we can use this to predict whether "die" or "dat" is more likely.
+This experiment shows that RobBERT has internalised more information about Dutch than other models.
+
+|   Model           | Accuracy [%]             |
+|-------------------|--------------------------|
+| ZeroR             | 66.70                    |
+| mBERT             | 90.21                    |
+| BERTje            | 94.94                    |
+| RobBERT v2        | **98.75**                |
+
+### Part-of-Speech Tagging.
+
+Using the [Lassy UD dataset](https://universaldependencies.org/treebanks/nl_lassysmall/index.html).
+
+
+|   Model           | Accuracy [%]             |
+|-------------------|--------------------------|
+| Frog              | 91.7                     |
+| mBERT             | **96.5**                 |
+| BERTje            | 96.3                     |
+| RobBERT v2        | 96.4                     |
+
+Interestingly, we found that when dealing with **small data sets**, RobBERT v2 **significantly outperforms** other models.
+
+<p align="center"> 
+    <img src="https://github.com/iPieter/RobBERT/blob/master/res/robbert_pos_accuracy.png" alt="RobBERT's performance on smaller datasets">
+ </p>
+
+### Named Entity Recognition
+
+Using the [CoNLL 2002 evaluation script](https://www.clips.uantwerpen.be/conll2002/ner/).
+
+
+|   Model           | Accuracy [%]             |
+|-------------------|--------------------------|
+| Frog              | 57.31                    |
+| mBERT             | **90.94**                |
+| BERT-NL           | 89.7                     |
+| BERTje            | 88.3                     |
+| RobBERT v2        | 89.08                    |
+
+
+## Training procedure
+
+We pre-trained RobBERT using the RoBERTa training regime.
+We pre-trained our model on the Dutch section of the [OSCAR corpus](https://oscar-corpus.com/), a large multilingual corpus which was obtained by language classification in the Common Crawl corpus.
+This Dutch corpus is 39GB large, with 6.6 billion words spread over 126 million lines of text, where each line could contain multiple sentences, thus using more data than concurrently developed Dutch BERT models.
+
+
+RobBERT shares its architecture with [RoBERTa's base model](https://github.com/pytorch/fairseq/tree/master/examples/roberta), which itself is a replication and improvement over BERT.
+Like BERT, it's architecture consists of 12 self-attention layers with 12 heads with 117M trainable parameters.
+One difference with the original BERT model is due to the different pre-training task specified by RoBERTa, using only the MLM task and not the NSP task.
+During pre-training, it thus only predicts which words are masked in certain positions of given sentences.
+The training process uses the Adam optimizer with polynomial decay of the learning rate l_r=10^-6 and a ramp-up period of 1000 iterations, with hyperparameters beta_1=0.9
+and RoBERTa's default beta_2=0.98.
+Additionally, a weight decay of 0.1 and a small dropout of 0.1 helps prevent the model from overfitting. 
+
+
+RobBERT was trained on a computing cluster with 4 Nvidia P100 GPUs per node, where the number of nodes was dynamically adjusted while keeping a fixed batch size of 8192 sentences.
+At most 20 nodes were used (i.e. 80 GPUs), and the median was 5 nodes.
+By using gradient accumulation, the batch size could be set independently of the number of GPUs available, in order to maximally utilize the cluster.
+Using the [Fairseq library](https://github.com/pytorch/fairseq/tree/master/examples/roberta), the model trained for two epochs, which equals over 16k batches in total, which took about three days on the computing cluster.
+In between training jobs on the computing cluster, 2 Nvidia 1080 Ti's also covered some parameter updates for RobBERT v2.
+
+
+## Limitations and bias
+
+In the [RobBERT paper](https://arxiv.org/abs/2001.06286), we also investigated potential sources of bias in RobBERT.
+
+We found that the zeroshot model estimates the probability of *hij* (he) to be higher than *zij* (she) for most occupations in bleached template sentences, regardless of their actual job gender ratio in reality.
+
+<p align="center"> 
+    <img src="https://github.com/iPieter/RobBERT/blob/master/res/gender_diff.png" alt="RobBERT's performance on smaller datasets">
+ </p>
+
+By augmenting the DBRB Dutch Book sentiment analysis dataset with the stated gender of the author of the review, we found that highly positive reviews written by women were generally more accurately detected by RobBERT as being positive than those written by men.
+
+<p align="center"> 
+    <img src="https://github.com/iPieter/RobBERT/blob/master/res/dbrd.png" alt="RobBERT's performance on smaller datasets">
+ </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Replicating the paper experiments
 
 You can replicate the experiments done in our paper by following the following steps.
 You can install the required dependencies either the requirements.txt or pipenv:
