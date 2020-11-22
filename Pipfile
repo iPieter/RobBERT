@@ -11,6 +11,7 @@ nltk = "*"
 transformers = "*"
 tensorboardx = "*"
 tokenizers = "~=0.4.2"
+jupyter = "*"
 
 [requires]
 python_version = "3.7"

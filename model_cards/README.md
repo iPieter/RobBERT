@@ -22,8 +22,8 @@ More detailled information can be found in the [RobBERT paper](https://arxiv.org
 
 ```python
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
-tokenizer = RobertaTokenizer.from_pretrained("pdelobelle/robBERT-base")
-model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robBERT-base")
+tokenizer = RobertaTokenizer.from_pretrained("pdelobelle/robbert-v2-dutch-base")
+model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robbert-v2-dutch-base")
 ```
 
 ## Performance Evaluation Results
@@ -108,19 +108,14 @@ Using the [CoNLL 2002 evaluation script](https://www.clips.uantwerpen.be/conll20
 | RobBERT v2        | 89.08                    |
 
 
-## Training data
-
-Describe the data you used to train the model.
-If you initialized it with pre-trained weights, add a link to the pre-trained model card or repository with description of the pre-training data.
-
 ## Training procedure
 
 We pre-trained RobBERT using the RoBERTa training regime.
-We pre-trained our model on the Dutch section of the OSCAR corpus, a large multilingual corpus which was obtained by language classification in the Common Crawl corpus \citep{ortizsuarezAsynchronous2019}.
+We pre-trained our model on the Dutch section of the [OSCAR corpus](https://oscar-corpus.com/), a large multilingual corpus which was obtained by language classification in the Common Crawl corpus.
 This Dutch corpus is 39GB large, with 6.6 billion words spread over 126 million lines of text, where each line could contain multiple sentences, thus using more data than concurrently developed Dutch BERT models.
 
 
-RobBERT shares its architecture with RoBERTa's base model, which itself is a replication and improvement over BERT.
+RobBERT shares its architecture with [RoBERTa's base model](https://github.com/pytorch/fairseq/tree/master/examples/roberta), which itself is a replication and improvement over BERT.
 Like BERT, it's architecture consists of 12 self-attention layers with 12 heads with 117M trainable parameters.
 One difference with the original BERT model is due to the different pre-training task specified by RoBERTa, using only the MLM task and not the NSP task.
 During pre-training, it thus only predicts which words are masked in certain positions of given sentences.
