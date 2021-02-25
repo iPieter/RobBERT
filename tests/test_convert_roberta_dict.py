@@ -55,8 +55,8 @@ class ConvertRobertaTestCase(unittest.TestCase):
         self.assertEqual(output_vocab['Een'], 4, msg="'Een' has vocab_id = 3, which is mapped to 0 (+4)")
         self.assertEqual(output_vocab['Twee'], 6, msg="'Twee' has vocab_id = 3, which is mapped to 2 (+4)")
         self.assertEqual(output_vocab['Drie'], 5, msg="'Drie' has vocab_id = 1, which is mapped to 1 (+4)")
-        self.assertEqual(output_vocab['Vier'], 7, msg="'Vier' has vocab_id = 5, which is mapped the next available value")
-        self.assertEqual(output_vocab['Vijf'], 8, msg="'Vijf' has vocab_id = 4, which is mapped the next available value")
+        self.assertIn(output_vocab['Vier'], [7, 8], msg="'Vier' has vocab_id = 5, which is mapped the next available value")
+        self.assertIn(output_vocab['Vijf'], [8, 7], msg="'Vijf' has vocab_id = 4, which is mapped the next available value")
 
     def test_tokenization(self):
         sample_input = "De tweede poging: nog een test van de tokenizer met nummers."
