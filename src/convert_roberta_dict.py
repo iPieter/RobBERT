@@ -56,6 +56,11 @@ def map_roberta(mapping, vocab):
         else:
             print("not found: {}".format(word_id))
 
+    # We need to add two more tokens and the mask token at specific positions
+
+    for word in [ inverse_vocab[x] for x in (set([str(vocab[k]) for k in vocab])-set(mapping)-set(EXTRA_TOKENS.keys()))]:
+        output_vocab[word] = len(output_vocab)
+
     return output_vocab
 
 def main(args: argparse.Namespace):
@@ -69,7 +74,7 @@ def main(args: argparse.Namespace):
     with open(args.vocab_bpe, encoding="utf-8") as vocab_fp:
         vocab = json.load(vocab_fp)
 
-    output_vocab = map_roberta(vocab)
+    output_vocab = map_roberta(mapping, vocab)
 
     with open(args.output_vocab, "w", encoding="utf-8") as output_fp:
         json.dump(output_vocab, output_fp, ensure_ascii=False)
