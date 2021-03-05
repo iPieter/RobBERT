@@ -8,7 +8,7 @@
 ![GitHub](https://img.shields.io/github/license/ipieter/RobBERT)
 
 # RobBERT
-RobBERT is a Dutch state-of-the-art language model based on [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta).
+RobBERT is a Dutch state-of-the-art BERT-based language model based on [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta).
 
 Read more on our [blog post](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) or on the [paper](https://arxiv.org/abs/2001.06286).
 
@@ -228,12 +228,17 @@ We release our models and this code under MIT.
 Even though MIT doesn't require it, we would like to ask if you could nevertheless cite our paper if it helped you!
 
 ```
-@misc{delobelle2020robbert,
-    title={RobBERT: a Dutch RoBERTa-based Language Model},
-    author={Pieter Delobelle and Thomas Winters and Bettina Berendt},
-    year={2020},
-    eprint={2001.06286},
-    archivePrefix={arXiv},
-    primaryClass={cs.CL}
-}
+@inproceedings{delobelle2020robbert,
+    title = "{R}ob{BERT}: a {D}utch {R}o{BERT}a-based {L}anguage {M}odel",
+    author = "Delobelle, Pieter  and
+      Winters, Thomas  and
+      Berendt, Bettina",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2020",
+    month = nov,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/2020.findings-emnlp.292",
+    doi = "10.18653/v1/2020.findings-emnlp.292",
+    pages = "3255--3265"
 ```
