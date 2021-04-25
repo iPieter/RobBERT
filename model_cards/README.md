@@ -206,7 +206,7 @@ Since *"rob"* is a Dutch words to denote a seal, we decided to draw a seal and d
 ## Credits and citation
 
 This project is created by [Pieter Delobelle](https://people.cs.kuleuven.be/~pieter.delobelle), [Thomas Winters](https://thomaswinters.be) and [Bettina Berendt](https://people.cs.kuleuven.be/~bettina.berendt/).
-If you would like to cite our paper or model, you can use the following BibTeX code:
+If you would like to cite our paper or model, you can use the following BibTeX:
 
 ```
 @inproceedings{delobelle2020robbert,
@@ -222,4 +222,5 @@ If you would like to cite our paper or model, you can use the following BibTeX c
     url = "https://www.aclweb.org/anthology/2020.findings-emnlp.292",
     doi = "10.18653/v1/2020.findings-emnlp.292",
     pages = "3255--3265"
+}
 ```
