@@ -7,16 +7,40 @@
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 ![GitHub](https://img.shields.io/github/license/ipieter/RobBERT)
 
-# RobBERT
-RobBERT is a Dutch state-of-the-art BERT-based language model based on [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta).
+# RobBERT: Dutch RoBERTa-based Language Model.
 
-Read more on our [blog post](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) or on the [paper](https://arxiv.org/abs/2001.06286).
+RobBERT is the state-of-the-art Dutch BERT model. It is a large pre-trained general Dutch language model that can be fine-tuned on a given dataset to perform any text classification, regression or token-tagging task. As such, it has been successfully used by many [researchers](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=7180110604335112086) and [practitioners](https://huggingface.co/models?search=robbert) for achieving state-of-the-art performance for a wide range of Dutch natural language processing tasks, including:
 
-## Getting started
+- [Emotion detection](https://www.aclweb.org/anthology/2021.wassa-1.27/)
+- Sentiment analysis ([book reviews](https://arxiv.org/pdf/2001.06286.pdf), [news articles](https://biblio.ugent.be/publication/8704637/file/8704638.pdf)*)
+- [Coreference resolution](https://arxiv.org/pdf/2001.06286.pdf)
+- Named entity recognition ([CoNLL](https://arxiv.org/pdf/2001.06286.pdf), [job titles](https://arxiv.org/pdf/2004.02814.pdf)*, [SoNaR](https://github.com/proycon/deepfrog))
+- Part-of-speech tagging ([Small UD Lassy](https://arxiv.org/pdf/2001.06286.pdf), [CGN](https://github.com/proycon/deepfrog))
+- [Zero-shot word prediction](https://arxiv.org/pdf/2001.06286.pdf)
+- [Humor detection](https://arxiv.org/pdf/2010.13652.pdf)
+- [Cyberbulling detection](https://www.cambridge.org/core/journals/natural-language-engineering/article/abs/automatic-classification-of-participant-roles-in-cyberbullying-can-we-detect-victims-bullies-and-bystanders-in-social-media-text/A2079C2C738C29428E666810B8903342)
+- [Correcting dt-spelling mistakes](https://gitlab.com/spelfouten/dutch-simpletransformers/)*
+
+and also achieved outstanding, near-sota results for:
+
+- [Natural language inference](https://arxiv.org/pdf/2101.05716.pdf)*
+- [Review classification](https://medium.com/broadhorizon-cmotions/nlp-with-r-part-5-state-of-the-art-in-nlp-transformers-bert-3449e3cd7494)*
+
+**Note that several evaluations use RobBERT-v1, and that the second and improved RobBERT-v2 outperforms this first model on everything we tested*
+
+(* Also note that this list is not exhaustive. If you used RobBERT for your application, we are happy to know about it! Send us a mail, or add it yourself to this list by sending a pull request with the edit!)*
+
+More in-depth information about RobBERT can be found in our [blog post](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) and in [our paper](https://arxiv.org/abs/2001.06286).
+
+## How To Use
+
+RobBERT uses the [RoBERTa](https://arxiv.org/abs/1907.11692) architecture and pre-training but with a Dutch tokenizer and training data. RoBERTa is the robustly optimized English BERT model, making it even more powerful than the original BERT model. Given this same architecture, RobBERT can easily be finetuned and inferenced using [code to finetune RoBERTa](https://huggingface.co/transformers/model_doc/roberta.html) models and most code used for BERT models, e.g. as provided by [HuggingFace Transformers](https://huggingface.co/transformers/) library.
 
 RobBERT can easily be used in two different ways, namely either using [Fairseq RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta) code or using [HuggingFace Transformers](https://github.com/huggingface/transformers)
 
-### Using Huggingface Transformers
+By default, RobBERT has the masked language model head used in training. This can be used as a zero-shot way to fill masks in sentences. It can be tested out for free on [RobBERT's Hosted infererence API of Huggingface](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=De+hoofdstad+van+Belgi%C3%AB+is+%3Cmask%3E.). You can also create a new prediction head for your own task by using any of HuggingFace's [RoBERTa-runners](https://huggingface.co/transformers/v2.7.0/examples.html#language-model-training), [their fine-tuning notebooks](https://huggingface.co/transformers/v4.1.1/notebooks.html) by changing the model name to `pdelobelle/robbert-v2-dutch-base`, or use the original fairseq [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta) training regimes.
+
+### Using Huggingface Transformers (easiest)
 
 You can easily download RobBERT v2 using [🤗 Transformers](https://github.com/huggingface/transformers).
 Use the following code to download the base model and finetune it yourself, or use one of our finetuned models (documented on  [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/)).
@@ -28,17 +52,19 @@ model = RobertaForSequenceClassification.from_pretrained("pdelobelle/robbert-v2-
 ```
 
 Starting with `transformers v2.4.0` (or installing from source), you can use AutoTokenizer and AutoModel.
+You can then use most of [HuggingFace's BERT-based notebooks](https://huggingface.co/transformers/v4.1.1/notebooks.html) for finetuning RobBERT on your type of Dutch language dataset.
 
-### Using Fairseq
+### Using Fairseq (harder)
 
 Alternatively, you can also use RobBERT using the [RoBERTa architecture code]((https://github.com/pytorch/fairseq/tree/master/examples/roberta)).
 You can download RobBERT v2's Fairseq model here: [(RobBERT-base, 1.5 GB)](https://github.com/iPieter/BERDT/releases/download/v1.0/RobBERT-base.pt). 
 Using RobBERT's `model.pt`, this method allows you to use all other functionalities of [RoBERTa](https://github.com/pytorch/fairseq/tree/master/examples/roberta).
 
 
+## Technical Details From The Paper
 
 
-## Performance Evaluation Results
+### Our Performance Evaluation Results
 
 All experiments are described in more detail in our [paper](https://arxiv.org/abs/2001.06286).
 
@@ -120,7 +146,7 @@ Using the [CoNLL 2002 evaluation script](https://www.clips.uantwerpen.be/conll20
 | RobBERT v2        | 89.08                    |
 
 
-## Training procedure
+## Pre-Training Procedure Details
 
 We pre-trained RobBERT using the RoBERTa training regime.
 We pre-trained our model on the Dutch section of the [OSCAR corpus](https://oscar-corpus.com/), a large multilingual corpus which was obtained by language classification in the Common Crawl corpus.
@@ -143,7 +169,7 @@ Using the [Fairseq library](https://github.com/pytorch/fairseq/tree/master/examp
 In between training jobs on the computing cluster, 2 Nvidia 1080 Ti's also covered some parameter updates for RobBERT v2.
 
 
-## Limitations and bias
+## Investigating Limitations and Bias
 
 In the [RobBERT paper](https://arxiv.org/abs/2001.06286), we also investigated potential sources of bias in RobBERT.
 
@@ -165,15 +191,7 @@ By augmenting the DBRB Dutch Book sentiment analysis dataset with the stated gen
 
 
 
-
-
-
-
-
-
-
-
-## Replicating the paper experiments
+## How to Replicate Our Paper Experiments
 
 You can replicate the experiments done in our paper by following the following steps.
 You can install the required dependencies either the requirements.txt or pipenv:
@@ -216,6 +234,12 @@ python src/preprocess_diedat.py
 ```
 
 note: You can monitor the progress of the first preprocessing step with `watch -n 2 wc -l data/europarl-v7.nl-en.nl.sentences`. This will take a while, but it's certainly not needed to use all inputs. This is after all why you want to use a pre-trained language model. You can terminate the python script at any time and the second step will only use those._
+
+## Name Origin of RobBERT
+
+Most BERT-like models have the word *BERT* in their name (e.g. [RoBERTa](https://huggingface.co/transformers/model_doc/roberta.html), [ALBERT](https://arxiv.org/abs/1909.11942), [CamemBERT](https://camembert-model.fr/), and [many, many others](https://huggingface.co/models?search=bert)).
+As such, we queried our newly trained model using its masked language model to name itself *\<mask\>bert* using [all](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=Mijn+naam+is+%3Cmask%3Ebert.) [kinds](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=Hallo%2C+ik+ben+%3Cmask%3Ebert.) [of](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=Leuk+je+te+ontmoeten%2C+ik+heet+%3Cmask%3Ebert.) [prompts](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=Niemand+weet%2C+niemand+weet%2C+dat+ik+%3Cmask%3Ebert+heet.), and it consistently called itself RobBERT.
+We thought it was really quite fitting, given that RobBERT is a [*very* Dutch name](https://en.wikipedia.org/wiki/Robbert) *(and thus clearly a Dutch language model)*, and additionally has a high similarity to its root architecture, namely [RoBERTa](https://huggingface.co/transformers/model_doc/roberta.html).
 
 ## Credits and citation
 
