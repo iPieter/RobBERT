@@ -66,7 +66,7 @@ Using RobBERT's `model.pt`, this method allows you to use all other functionalit
 
 ### Our Performance Evaluation Results
 
-All experiments are described in more detail in our [paper](https://arxiv.org/abs/2001.06286).
+All experiments are described in more detail in our [paper](https://arxiv.org/abs/2001.06286), with the code in [our GitHub repository](https://github.com/iPieter/RobBERT).
 
 ### Sentiment analysis
 Predicting whether a review is positive or negative using the [Dutch Book Reviews Dataset](https://github.com/benjaminvdb/110kDBRD).
@@ -267,4 +267,5 @@ If you would like to cite our paper or model, you can use the following BibTeX c
     url = "https://www.aclweb.org/anthology/2020.findings-emnlp.292",
     doi = "10.18653/v1/2020.findings-emnlp.292",
     pages = "3255--3265"
+}
 ```
