@@ -34,7 +34,7 @@ and also achieved outstanding, near-sota results for:
 
 *(Also note that this list is not exhaustive. If you used RobBERT for your application, we are happy to know about it! Send us a mail, or add it yourself to this list by sending a pull request with the edit!)*
 
-To use the RobBERT model using [HuggingFace transformers](https://huggingface.co/transformers/), use the name `pdelobelle/robbert-v2-dutch-base`.
+To use the RobBERT model using [HuggingFace transformers](https://huggingface.co/transformers/), use the name [`pdelobelle/robbert-v2-dutch-base`](https://huggingface.co/pdelobelle/robbert-v2-dutch-base).
 
 More in-depth information about RobBERT can be found in our [blog post](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) and in [our paper](https://arxiv.org/abs/2001.06286).
 
