@@ -32,6 +32,30 @@ and also achieved outstanding, near-sota results for:
 
 More in-depth information about RobBERT can be found in our [blog post](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) and in [our paper](https://arxiv.org/abs/2001.06286).
 
+## Table of contents
+* [How To Use](#how-to-use)
+  + [Using Huggingface Transformers (easiest)](#using-huggingface-transformers-easiest)
+  + [Using Fairseq (harder)](#using-fairseq-harder)
+* [Technical Details From The Paper](#technical-details-from-the-paper)
+  + [Our Performance Evaluation Results](#our-performance-evaluation-results)
+  + [Sentiment analysis](#sentiment-analysis)
+  + [Die/Dat (coreference resolution)](#diedat-coreference-resolution)
+    - [Finetuning on whole dataset](#finetuning-on-whole-dataset)
+    - [Finetuning on 10K examples](#finetuning-on-10k-examples)
+    - [Using zero-shot word masking task](#using-zero-shot-word-masking-task)
+  + [Part-of-Speech Tagging.](#part-of-speech-tagging)
+  + [Named Entity Recognition](#named-entity-recognition)
+* [Pre-Training Procedure Details](#pre-training-procedure-details)
+* [Investigating Limitations and Bias](#investigating-limitations-and-bias)
+* [How to Replicate Our Paper Experiments](#how-to-replicate-our-paper-experiments)
+  + [Classification](#classification)
+    - [Sentiment analysis using the Dutch Book Review Dataset](#sentiment-analysis-using-the-dutch-book-review-dataset)
+    - [Predicting the Dutch pronouns _die_ and _dat_](#predicting-the-dutch-pronouns-die-and-dat)
+* [Name Origin of RobBERT](#name-origin-of-robbert)
+* [Credits and citation](#credits-and-citation)
+
+
+
 ## How To Use
 
 RobBERT uses the [RoBERTa](https://arxiv.org/abs/1907.11692) architecture and pre-training but with a Dutch tokenizer and training data. RoBERTa is the robustly optimized English BERT model, making it even more powerful than the original BERT model. Given this same architecture, RobBERT can easily be finetuned and inferenced using [code to finetune RoBERTa](https://huggingface.co/transformers/model_doc/roberta.html) models and most code used for BERT models, e.g. as provided by [HuggingFace Transformers](https://huggingface.co/transformers/) library.
