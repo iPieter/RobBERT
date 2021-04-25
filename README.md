@@ -129,7 +129,7 @@ Using the [Lassy UD dataset](https://universaldependencies.org/treebanks/nl_lass
 Interestingly, we found that when dealing with **small data sets**, RobBERT v2 **significantly outperforms** other models.
 
 <p align="center"> 
-    <img src="https://github.com/iPieter/RobBERT/blob/master/res/robbert_pos_accuracy.png" alt="RobBERT's performance on smaller datasets">
+    <img src="https://github.com/iPieter/RobBERT/raw/master/res/robbert_pos_accuracy.png" alt="RobBERT's performance on smaller datasets">
  </p>
 
 ### Named Entity Recognition
@@ -176,13 +176,13 @@ In the [RobBERT paper](https://arxiv.org/abs/2001.06286), we also investigated p
 We found that the zeroshot model estimates the probability of *hij* (he) to be higher than *zij* (she) for most occupations in bleached template sentences, regardless of their actual job gender ratio in reality.
 
 <p align="center"> 
-    <img src="https://github.com/iPieter/RobBERT/blob/master/res/gender_diff.png" alt="RobBERT's performance on smaller datasets">
+    <img src="https://github.com/iPieter/RobBERT/raw/master/res/gender_diff.png" alt="RobBERT's performance on smaller datasets">
  </p>
 
 By augmenting the DBRB Dutch Book sentiment analysis dataset with the stated gender of the author of the review, we found that highly positive reviews written by women were generally more accurately detected by RobBERT as being positive than those written by men.
 
 <p align="center"> 
-    <img src="https://github.com/iPieter/RobBERT/blob/master/res/dbrd.png" alt="RobBERT's performance on smaller datasets">
+    <img src="https://github.com/iPieter/RobBERT/raw/master/res/dbrd.png" alt="RobBERT's performance on smaller datasets">
  </p>
 
 
