@@ -15,7 +15,7 @@ datasets:
 - europarl-mono
 - conll2002
 widget:
-- text: "Hallo, ik ben RobBERT, een <mask> taalmodel van de KU Leuven"
+- text: "Hallo, ik ben RobBERT, een <mask> taalmodel van de KU Leuven."
 ---
 
 <p align="center"> 
