@@ -6,10 +6,14 @@
 ![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 ![GitHub](https://img.shields.io/github/license/ipieter/RobBERT)
+![🤗 HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-%20pdelobelle%2Frobbert--v2--dutch--base-orange)
+
 
 # RobBERT: Dutch RoBERTa-based Language Model.
 
-RobBERT is the state-of-the-art Dutch BERT model. It is a large pre-trained general Dutch language model that can be fine-tuned on a given dataset to perform any text classification, regression or token-tagging task. As such, it has been successfully used by many [researchers](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=7180110604335112086) and [practitioners](https://huggingface.co/models?search=robbert) for achieving state-of-the-art performance for a wide range of Dutch natural language processing tasks, including:
+RobBERT is the state-of-the-art Dutch BERT model.
+It is a large pre-trained general Dutch language model that can be fine-tuned on a given dataset to perform any text classification, regression or token-tagging task.
+As such, it has been successfully used by many [researchers](https://scholar.google.com/scholar?oi=bibs&hl=en&cites=7180110604335112086) and [practitioners](https://huggingface.co/models?search=robbert) for achieving state-of-the-art performance for a wide range of Dutch natural language processing tasks, including:
 
 - [Emotion detection](https://www.aclweb.org/anthology/2021.wassa-1.27/)
 - Sentiment analysis ([book reviews](https://arxiv.org/pdf/2001.06286.pdf), [news articles](https://biblio.ugent.be/publication/8704637/file/8704638.pdf)*)
@@ -29,6 +33,8 @@ and also achieved outstanding, near-sota results for:
 \* *Note that several evaluations use RobBERT-v1, and that the second and improved RobBERT-v2 outperforms this first model on everything we tested*
 
 *(Also note that this list is not exhaustive. If you used RobBERT for your application, we are happy to know about it! Send us a mail, or add it yourself to this list by sending a pull request with the edit!)*
+
+To use the RobBERT model using [HuggingFace transformers](https://huggingface.co/transformers/), use the name `pdelobelle/robbert-v2-dutch-base`.
 
 More in-depth information about RobBERT can be found in our [blog post](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/) and in [our paper](https://arxiv.org/abs/2001.06286).
 
