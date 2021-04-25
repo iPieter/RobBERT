@@ -241,6 +241,8 @@ Most BERT-like models have the word *BERT* in their name (e.g. [RoBERTa](https:/
 As such, we queried our newly trained model using its masked language model to name itself *\<mask\>bert* using [all](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=Mijn+naam+is+%3Cmask%3Ebert.) [kinds](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=Hallo%2C+ik+ben+%3Cmask%3Ebert.) [of](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=Leuk+je+te+ontmoeten%2C+ik+heet+%3Cmask%3Ebert.) [prompts](https://huggingface.co/pdelobelle/robbert-v2-dutch-base?text=Niemand+weet%2C+niemand+weet%2C+dat+ik+%3Cmask%3Ebert+heet.), and it consistently called itself RobBERT.
 We thought it was really quite fitting, given that RobBERT is a [*very* Dutch name](https://en.wikipedia.org/wiki/Robbert) *(and thus clearly a Dutch language model)*, and additionally has a high similarity to its root architecture, namely [RoBERTa](https://huggingface.co/transformers/model_doc/roberta.html).
 
+Since *"rob"* is a Dutch words to denote a seal, we decided to draw a seal and dress it up like Bert from Sesame Street for the logo of our RobBERT model.
+
 ## Credits and citation
 
 This project is created by [Pieter Delobelle](https://github.com/iPieter), [Thomas Winters](https://github.com/twinters) and Bettina Berendt.
@@ -249,7 +251,7 @@ We are grateful to Liesbeth Allein, for her work on die-dat disambiguation, Hugg
 
 We release our models and this code under MIT. 
 
-Even though MIT doesn't require it, we would like to ask if you could nevertheless cite our paper if it helped you!
+If you would like to cite our paper or model, you can use the following BibTeX code:
 
 ```
 @inproceedings{delobelle2020robbert,
