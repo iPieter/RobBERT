@@ -22,7 +22,7 @@ As such, it has been successfully used by many [researchers](https://scholar.goo
 - Part-of-speech tagging ([Small UD Lassy](https://arxiv.org/pdf/2001.06286.pdf), [CGN](https://github.com/proycon/deepfrog))
 - [Zero-shot word prediction](https://arxiv.org/pdf/2001.06286.pdf)
 - [Humor detection](https://arxiv.org/pdf/2010.13652.pdf)
-- [Cyberbulling detection](https://www.cambridge.org/core/journals/natural-language-engineering/article/abs/automatic-classification-of-participant-roles-in-cyberbullying-can-we-detect-victims-bullies-and-bystanders-in-social-media-text/A2079C2C738C29428E666810B8903342)
+- [Cyberbullying detection](https://www.cambridge.org/core/journals/natural-language-engineering/article/abs/automatic-classification-of-participant-roles-in-cyberbullying-can-we-detect-victims-bullies-and-bystanders-in-social-media-text/A2079C2C738C29428E666810B8903342)
 - [Correcting dt-spelling mistakes](https://gitlab.com/spelfouten/dutch-simpletransformers/)*
 
 and also achieved outstanding, near-sota results for:
