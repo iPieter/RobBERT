@@ -74,7 +74,7 @@ You can then use most of [HuggingFace's BERT-based notebooks](https://huggingfac
 All experiments are described in more detail in our [paper](https://arxiv.org/abs/2001.06286), with the code in [our GitHub repository](https://github.com/iPieter/RobBERT).
 
 ### Sentiment analysis
-Predicting whether a review is positive or negative using the [Dutch Book Reviews Dataset](https://github.com/benjaminvdb/110kDBRD).
+Predicting whether a review is positive or negative using the [Dutch Book Reviews Dataset](https://github.com/benjaminvdb/DBRD).
 
 |   Model           | Accuracy [%]             |
 |-------------------|--------------------------|

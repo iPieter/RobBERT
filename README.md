@@ -99,7 +99,7 @@ Using RobBERT's `model.pt`, this method allows you to use all other functionalit
 All experiments are described in more detail in our [paper](https://arxiv.org/abs/2001.06286), with the code in [our GitHub repository](https://github.com/iPieter/RobBERT).
 
 ### Sentiment analysis
-Predicting whether a review is positive or negative using the [Dutch Book Reviews Dataset](https://github.com/benjaminvdb/110kDBRD).
+Predicting whether a review is positive or negative using the [Dutch Book Reviews Dataset](https://github.com/benjaminvdb/DBRD).
 
 |   Model           | Accuracy [%]             |
 |-------------------|--------------------------|
@@ -234,7 +234,7 @@ In this section we describe how to use the scripts we provide to fine-tune model
 
 #### Sentiment analysis using the Dutch Book Review Dataset
 
-- Download the Dutch book review dataset from [https://github.com/benjaminvdb/110kDBRD](https://github.com/benjaminvdb/110kDBRD), and save it to `data/raw/110kDBRD`
+- Download the Dutch book review dataset from [https://github.com/benjaminvdb/DBRD](https://github.com/benjaminvdb/DBRD), and save it to `data/raw/DBRD`
 - Run `src/preprocess_dbrd.py` to prepare the dataset.
 - To not be blind during training, we recommend to keep aside a small evaluation set from the training set. For this run `src/split_dbrd_training.sh`.
 - Follow the notebook `notebooks/finetune_dbrd.ipynb` to finetune the model.
