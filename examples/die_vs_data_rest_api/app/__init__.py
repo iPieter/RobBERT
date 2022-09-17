@@ -1,6 +1,6 @@
 from flask import Flask, request
 import os
-from transformers import RobertaForSequenceClassification, RobertaTokenizer
+from transformers import RobertaForSequenceClassification, RobertaForMaskedLM, RobertaTokenizer
 import torch
 import nltk
 from nltk.tokenize.treebank import TreebankWordDetokenizer
@@ -39,7 +39,7 @@ def replace_query_token(sentence):
     raise ValueError("'die' or 'dat' should be surrounded by underscores.")
 
 
-def create_app(model_path: str, device="cpu"):
+def create_app(model_path: str, fast_model_path:str, device="cpu"):
     """
     Create the flask app.
 
@@ -50,53 +50,97 @@ def create_app(model_path: str, device="cpu"):
     app = Flask(__name__, instance_relative_config=True)
 
     print("initializing tokenizer and RobBERT.")
-    tokenizer = RobertaTokenizer.from_pretrained(model_path)
+    if model_path:
+        tokenizer: RobertaTokenizer = RobertaTokenizer.from_pretrained(model_path, use_auth_token=True)
+        robbert = RobertaForSequenceClassification.from_pretrained(model_path, use_auth_token=True)
+        robbert.eval()
+        print("Loaded finetuned model")
 
-    robbert = RobertaForSequenceClassification.from_pretrained(model_path)
+    if fast_model_path:
+        fast_tokenizer: RobertaTokenizer = RobertaTokenizer.from_pretrained(fast_model_path, use_auth_token=True)
+        fast_robbert = RobertaForMaskedLM.from_pretrained(fast_model_path, use_auth_token=True)
+        fast_robbert.eval()
 
-    print(robbert)
+        print("Loaded MLM model")
+
+        possible_tokens = ['die', 'dat', 'Die', 'Dat']
+
+        ids = fast_tokenizer.convert_tokens_to_ids(possible_tokens)
 
     mask_padding_with_zero = True
     block_size = 512
 
     # Disable dropout
-    robbert.eval()
 
     nltk.download('punkt')
+    
+    if fast_model_path:
+        @app.route('/fast', methods=["POST"])
+        def fast():
+            sentence = request.form['sentence']
+            for i, x in enumerate(possible_tokens):
+                if f"_{x}_" in sentence:
+                    masked_id = i
+                    query = sentence.replace(f"_{x}_" , fast_tokenizer.mask_token)
 
-    @app.route('/', methods=["POST"])
-    def hello_world():
-        sentence = request.form['sentence']
-        query = replace_query_token(sentence)
+            inputs = fast_tokenizer.encode_plus(query, return_tensors="pt")
 
-        tokenized_text = tokenizer.encode(tokenizer.tokenize(query)[- block_size + 3: -1])
+            masked_position = torch.where(inputs['input_ids'] == fast_tokenizer.mask_token_id)[1]
+            if len(masked_position) > 1:
+                return "No two queries allowed in one sentence.", 400
 
-        input_mask = [1 if mask_padding_with_zero else 0] * len(tokenized_text)
+            # self.examples.append([tokenizer.build_inputs_with_special_tokens(tokenized_text[0 : block_size]), [0], [0]])
+            with torch.no_grad():
+                outputs = fast_robbert(**inputs)
 
-        pad_token = tokenizer.convert_tokens_to_ids(tokenizer.pad_token)
-        while len(tokenized_text) < block_size:
-            tokenized_text.append(pad_token)
-            input_mask.append(0 if mask_padding_with_zero else 1)
-            # segment_ids.append(pad_token_segment_id)
-            # p_mask.append(1)
+                print(outputs.logits[0,masked_position,ids] )
+                token = outputs.logits[0,masked_position,ids].argmax()
+                
+                confidence = float(outputs.logits[0,masked_position,ids].max())
 
-        # self.examples.append([tokenizer.build_inputs_with_special_tokens(tokenized_text[0 : block_size]), [0], [0]])
-        batch = tuple(torch.tensor(t).to(torch.device(device)) for t in
-                      [tokenized_text[0: block_size - 3], input_mask[0: block_size - 3], [0], [1][0]])
-        inputs = {"input_ids": batch[0].unsqueeze(0), "attention_mask": batch[1].unsqueeze(0),
-                  "labels": batch[3].unsqueeze(0)}
-        with torch.no_grad():
-            outputs = robbert(**inputs)
+                response = {"rating": possible_tokens[token], "interpretation": "correct" if token == masked_id else "incorrect",
+                            "confidence": confidence, "sentence": sentence}
 
-            rating = outputs[1].argmax().item()
-            confidence = outputs[1][0, rating].item()
+                # This would be a good place for logging/storing queries + results
+                print(response)
 
-            response = {"rating": rating, "interpretation": "incorrect" if rating == 1 else "correct",
-                        "confidence": confidence, "sentence": sentence}
+                return json.dumps(response)
 
-            # This would be a good place for logging/storing queries + results
-            print(response)
+    
+    if model_path:
+        @app.route('/', methods=["POST"])
+        def main():
+            sentence = request.form['sentence']
+            query = replace_query_token(sentence)
 
-            return json.dumps(response)
+            tokenized_text = tokenizer.encode(tokenizer.tokenize(query)[- block_size + 3: -1])
+
+            input_mask = [1 if mask_padding_with_zero else 0] * len(tokenized_text)
+
+            pad_token = tokenizer.convert_tokens_to_ids(tokenizer.pad_token)
+            while len(tokenized_text) < block_size:
+                tokenized_text.append(pad_token)
+                input_mask.append(0 if mask_padding_with_zero else 1)
+                # segment_ids.append(pad_token_segment_id)
+                # p_mask.append(1)
+
+            # self.examples.append([tokenizer.build_inputs_with_special_tokens(tokenized_text[0 : block_size]), [0], [0]])
+            batch = tuple(torch.tensor(t).to(torch.device(device)) for t in
+                        [tokenized_text[0: block_size - 3], input_mask[0: block_size - 3], [0], [1][0]])
+            inputs = {"input_ids": batch[0].unsqueeze(0), "attention_mask": batch[1].unsqueeze(0),
+                    "labels": batch[3].unsqueeze(0)}
+            with torch.no_grad():
+                outputs = robbert(**inputs)
+
+                rating = outputs[1].argmax().item()
+                confidence = outputs[1][0, rating].item()
+
+                response = {"rating": rating, "interpretation": "incorrect" if rating == 1 else "correct",
+                            "confidence": confidence, "sentence": sentence}
+
+                # This would be a good place for logging/storing queries + results
+                print(response)
+
+                return json.dumps(response)
 
     return app
