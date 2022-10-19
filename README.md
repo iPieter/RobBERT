@@ -6,7 +6,7 @@
 ![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 ![GitHub](https://img.shields.io/github/license/ipieter/RobBERT)
-![🤗 HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-%20pdelobelle%2Frobbert--v2--dutch--base-orange)
+[![🤗 HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-%20pdelobelle%2Frobbert--v2--dutch--base-orange)](https://huggingface.co/pdelobelle/robbert-v2-dutch-base)
 
 
 # RobBERT: Dutch RoBERTa-based Language Model.
