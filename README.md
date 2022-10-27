@@ -73,7 +73,7 @@ By default, RobBERT has the masked language model head used in training. This ca
 ### Using Huggingface Transformers (easiest)
 
 You can easily [download RobBERT v2](https://huggingface.co/pdelobelle/robbert-v2-dutch-base) using [🤗 Transformers](https://github.com/huggingface/transformers).
-Use the following code to download the base model and finetune it yourself, or use one of our finetuned models (documented on  [our project site](https://people.cs.kuleuven.be/~pieter.delobelle/robbert/)).
+Use the following code to download the base model and finetune it yourself, or use one of our finetuned models (documented on  [our project site](https://pieter.ai/robbert/)).
 
 ```python
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
