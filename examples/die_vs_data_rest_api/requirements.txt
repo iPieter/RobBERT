@@ -26,4 +26,4 @@ torch==1.4.0
 tqdm==4.45.0
 transformers==2.7.0
 urllib3==1.25.8
-Werkzeug==1.0.1
+Werkzeug==2.2.3
