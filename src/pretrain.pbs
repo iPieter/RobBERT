@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -l partition=gpu
+#PBS -l walltime=12:00:00
+#PBS -l nodes=5:ppn=36:gpus=4
+#PBS -l pmem=5gb
+#PBS -l excludenodes=r24g39:r22g41
+#PBS -N alBERT
+#PBS -A lp_dtai1
+
+
+echo "changing dir"
+cd $VSC_DATA
+source miniconda3/bin/activate torch
+cd alBERT
+
+DATA_DIR=/scratch/leuven/x/x/data-bin/nl_dedup
+
+MASTER_ADDR=$(cat $PBS_NODEFILE | head -n 1)
+MASTER_PORT=6666
+WORLD_SIZE=20
+
+echo "Master node is" $MASTER_ADDR
+
+pbsdsh -u sh $PBS_O_WORKDIR/run_node.sh $MASTER_ADDR $MASTER_PORT $WORLD_SIZE
+
+echo "Done training, cleaning up syncfile."
+rm /scratch/leuven/x/x/sync_torch/syncfile
